@@ -43,3 +43,9 @@ Route::group(['middleware' => ['jwt.verify','auth:api']],function ()
     Route::get('voucher/{voucher_no}/delete','API\Admin\VoucherController@destroy');
     Route::post('voucher/approve','API\Admin\VoucherController@voucher_approve');
 });
+
+Route::group(['prefix' => 'post'],function ()
+{
+    Route::get('list', 'API\PostController@postList');
+    Route::post('add', 'API\PostController@postAdd');
+});
