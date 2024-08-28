@@ -7,7 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PostController extends Controller
+class PostController extends APIController
 {
     public function postList()
     {
