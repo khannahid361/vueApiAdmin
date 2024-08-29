@@ -44,6 +44,7 @@ class PostController extends APIController
                 'description' => $request->description
             ];
             Post::create($postData);
+            $message = 'Data has been stored successfully!';
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
@@ -52,4 +53,54 @@ class PostController extends APIController
         }
         return $this->sendResult($message,$data,$errors,$status);
     }
+
+    public function postUpdate(Request $request, $id)
+    {
+        $errors  = [];
+        $data    = [];
+        $message = "";
+        $status  = true;
+
+        DB::beginTransaction();
+        try {
+            $postData = [
+                'title' => $request->title,
+                'author_name' => $request->author_name,
+                'description' => $request->description
+            ];
+            Post::where('id', $id)->update($postData);
+            $message = 'Data has been Updated successfully!';
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            $message = $e->getMessage();
+            $status = false;
+        }
+        return $this->sendResult($message,$data,$errors,$status);
+    }
+
+    // public function postDestroy(Request $request, $id)
+    // {
+    //     $errors  = [];
+    //     $data    = [];
+    //     $message = "";
+    //     $status  = true;
+
+    //     DB::beginTransaction();
+    //     try {
+    //         $postData = [
+    //             'title' => $request->title,
+    //             'author_name' => $request->author_name,
+    //             'description' => $request->description
+    //         ];
+    //         Post::where('id', $id)->update($postData);
+    //         $message = 'Data has been Updated successfully!';
+    //         DB::commit();
+    //     } catch (\Throwable $e) {
+    //         DB::rollBack();
+    //         $message = $e->getMessage();
+    //         $status = false;
+    //     }
+    //     return $this->sendResult($message,$data,$errors,$status);
+    // }
 }
