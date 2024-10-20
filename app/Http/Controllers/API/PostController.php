@@ -54,6 +54,12 @@ class PostController extends APIController
         return $this->sendResult($message,$data,$errors,$status);
     }
 
+    public function show($id)
+    {
+        $data = Post::firstWhere('id', $id);
+        return response()->json($data);
+    }
+
     public function postUpdate(Request $request, $id)
     {
         $errors  = [];

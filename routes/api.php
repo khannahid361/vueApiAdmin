@@ -48,4 +48,5 @@ Route::group(['prefix' => 'post'],function ()
 {
     Route::get('list', 'API\PostController@postList');
     Route::post('add', 'API\PostController@postAdd');
+    Route::get('details/{id}', 'API\PostController@show');
 });
